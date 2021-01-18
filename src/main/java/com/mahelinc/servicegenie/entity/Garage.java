@@ -12,15 +12,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
-
 /**
  * The Entity Class For Garage.
  *
  * @author surendrane
  */
 @Entity
-@Table(name="Garage")
+@Table(name = "Garage")
 public class Garage implements Serializable {
 
 	/** The Constant serialVersionUID. */
@@ -32,8 +30,8 @@ public class Garage implements Serializable {
 	protected Long id;
 
 	/** The garage name. */
-	@Column(name = "GarageName")
-	private String garageName;
+	@Column(name = "GarageTitle")
+	private String garageTitle;
 
 	/** The latitude. */
 	@Column(name = "Latitude")
@@ -44,12 +42,24 @@ public class Garage implements Serializable {
 	private double longitude;
 
 	/** The phone number. */
-	@Column(name = "PhoneNumber")
-	private String phoneNumber;
+	@Column(name = "Contact")
+	private String contact;
+
+	/** The alt contact. */
+	@Column(name = "AltContact")
+	private String altContact;
+
+	/** The payment mode. */
+	@Column(name = "PaymentMode")
+	private String paymentMode;
+
+	/** The date of est. */
+	@Column(name = "YearOfEstablishment")
+	private String dateOfEst;
 
 	/** The location address. */
 	@Column(name = "Location")
-	private String locationAddress;
+	private String location;
 
 	/** The address. */
 	@Column(name = "Address")
@@ -62,28 +72,10 @@ public class Garage implements Serializable {
 	/** The week off. */
 	@Column(name = "WeekOff")
 	private String weekOff;
-	
+
 	/** The pin code. */
 	@Column(name = "PinCode")
 	private String pinCode;
-
-	/**
-	 * Gets the pin code.
-	 *
-	 * @return the pinCode
-	 */
-	public String getPinCode() {
-		return pinCode;
-	}
-
-	/**
-	 * Sets the pin code.
-	 *
-	 * @param pinCode the pinCode to set
-	 */
-	public void setPinCode(String pinCode) {
-		this.pinCode = pinCode;
-	}
 
 	/**
 	 * Gets the id.
@@ -97,28 +89,28 @@ public class Garage implements Serializable {
 	/**
 	 * Sets the id.
 	 *
-	 * @param id the id to set
+	 * @param id the new id
 	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
 
 	/**
-	 * Gets the garage name.
+	 * Gets the garage title.
 	 *
-	 * @return the garageName
+	 * @return the garage title
 	 */
-	public String getGarageName() {
-		return garageName;
+	public String getGarageTitle() {
+		return garageTitle;
 	}
 
 	/**
-	 * Sets the garage name.
+	 * Sets the garage title.
 	 *
-	 * @param garageName the garageName to set
+	 * @param garageTitle the new garage title
 	 */
-	public void setGarageName(String garageName) {
-		this.garageName = garageName;
+	public void setGarageTitle(String garageTitle) {
+		this.garageTitle = garageTitle;
 	}
 
 	/**
@@ -133,7 +125,7 @@ public class Garage implements Serializable {
 	/**
 	 * Sets the latitude.
 	 *
-	 * @param latitude the latitude to set
+	 * @param latitude the new latitude
 	 */
 	public void setLatitude(double latitude) {
 		this.latitude = latitude;
@@ -151,46 +143,100 @@ public class Garage implements Serializable {
 	/**
 	 * Sets the longitude.
 	 *
-	 * @param longitude the longitude to set
+	 * @param longitude the new longitude
 	 */
 	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
 
 	/**
-	 * Gets the phone number.
+	 * Gets the contact.
 	 *
-	 * @return the phoneNumber
+	 * @return the contact
 	 */
-	public String getPhoneNumber() {
-		return phoneNumber;
+	public String getContact() {
+		return contact;
 	}
 
 	/**
-	 * Sets the phone number.
+	 * Sets the contact.
 	 *
-	 * @param phoneNumber the phoneNumber to set
+	 * @param contact the new contact
 	 */
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
+	public void setContact(String contact) {
+		this.contact = contact;
 	}
 
 	/**
-	 * Gets the location address.
+	 * Gets the alt contact.
 	 *
-	 * @return the locationAddress
+	 * @return the alt contact
 	 */
-	public String getLocationAddress() {
-		return locationAddress;
+	public String getAltContact() {
+		return altContact;
 	}
 
 	/**
-	 * Sets the location address.
+	 * Sets the alt contact.
 	 *
-	 * @param locationAddress the locationAddress to set
+	 * @param altContact the new alt contact
 	 */
-	public void setLocationAddress(String locationAddress) {
-		this.locationAddress = locationAddress;
+	public void setAltContact(String altContact) {
+		this.altContact = altContact;
+	}
+
+	/**
+	 * Gets the payment mode.
+	 *
+	 * @return the payment mode
+	 */
+	public String getPaymentMode() {
+		return paymentMode;
+	}
+
+	/**
+	 * Sets the payment mode.
+	 *
+	 * @param paymentMode the new payment mode
+	 */
+	public void setPaymentMode(String paymentMode) {
+		this.paymentMode = paymentMode;
+	}
+
+	/**
+	 * Gets the date of est.
+	 *
+	 * @return the date of est
+	 */
+	public String getDateOfEst() {
+		return dateOfEst;
+	}
+
+	/**
+	 * Sets the date of est.
+	 *
+	 * @param dateOfEst the new date of est
+	 */
+	public void setDateOfEst(String dateOfEst) {
+		this.dateOfEst = dateOfEst;
+	}
+
+	/**
+	 * Gets the location.
+	 *
+	 * @return the location
+	 */
+	public String getLocation() {
+		return location;
+	}
+
+	/**
+	 * Sets the location.
+	 *
+	 * @param location the new location
+	 */
+	public void setLocation(String location) {
+		this.location = location;
 	}
 
 	/**
@@ -205,7 +251,7 @@ public class Garage implements Serializable {
 	/**
 	 * Sets the address.
 	 *
-	 * @param address the address to set
+	 * @param address the new address
 	 */
 	public void setAddress(String address) {
 		this.address = address;
@@ -214,7 +260,7 @@ public class Garage implements Serializable {
 	/**
 	 * Gets the operating hours.
 	 *
-	 * @return the operatingHours
+	 * @return the operating hours
 	 */
 	public String getOperatingHours() {
 		return operatingHours;
@@ -223,7 +269,7 @@ public class Garage implements Serializable {
 	/**
 	 * Sets the operating hours.
 	 *
-	 * @param operatingHours the operatingHours to set
+	 * @param operatingHours the new operating hours
 	 */
 	public void setOperatingHours(String operatingHours) {
 		this.operatingHours = operatingHours;
@@ -232,7 +278,7 @@ public class Garage implements Serializable {
 	/**
 	 * Gets the week off.
 	 *
-	 * @return the weekOff
+	 * @return the week off
 	 */
 	public String getWeekOff() {
 		return weekOff;
@@ -241,19 +287,28 @@ public class Garage implements Serializable {
 	/**
 	 * Sets the week off.
 	 *
-	 * @param weekOff the weekOff to set
+	 * @param weekOff the new week off
 	 */
 	public void setWeekOff(String weekOff) {
 		this.weekOff = weekOff;
 	}
 
 	/**
-	 * Gets the serialversionuid.
+	 * Gets the pin code.
 	 *
-	 * @return the serialversionuid
+	 * @return the pin code
 	 */
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public String getPinCode() {
+		return pinCode;
+	}
+
+	/**
+	 * Sets the pin code.
+	 *
+	 * @param pinCode the new pin code
+	 */
+	public void setPinCode(String pinCode) {
+		this.pinCode = pinCode;
 	}
 
 	/**
@@ -263,9 +318,10 @@ public class Garage implements Serializable {
 	 */
 	@Override
 	public String toString() {
-		return "Garage [id=" + id + ", garageName=" + garageName + ", latitude=" + latitude + ", longitude=" + longitude
-				+ ", phoneNumber=" + phoneNumber + ", locationAddress=" + locationAddress + ", address=" + address
-				+ ", operatingHours=" + operatingHours + ", weekOff=" + weekOff + ", pinCode=" + pinCode + "]";
+		return "Garage [id=" + id + ", garageTitle=" + garageTitle + ", latitude=" + latitude + ", longitude="
+				+ longitude + ", contact=" + contact + ", altContact=" + altContact + ", paymentMode=" + paymentMode
+				+ ", dateOfEst=" + dateOfEst + ", location=" + location + ", address=" + address + ", operatingHours="
+				+ operatingHours + ", weekOff=" + weekOff + ", pinCode=" + pinCode + "]";
 	}
 
 }

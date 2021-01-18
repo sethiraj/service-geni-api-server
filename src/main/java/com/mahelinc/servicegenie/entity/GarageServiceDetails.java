@@ -1,38 +1,101 @@
 /**
- * This is a Model For Respective Garage's Service Offerings.
+ * 
  */
-package com.mahelinc.servicegenie.model;
+package com.mahelinc.servicegenie.entity;
 
+import java.io.Serializable;
 
-import org.springframework.validation.annotation.Validated;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
- * @author surendrane
+ * The Entity Class is for GarageServices.
  *
+ * @author surendrane
  */
-@Validated
-public class GarageServices {
+@Entity
+@Table(name = "GarageServices")
+public class GarageServiceDetails implements Serializable {
+
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = 1L;
+
+	/** The id. */
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	protected Long id;
+
+	/** The garage name. */
+	@Column(name = "GarageName")
+	private String garageName;
 
 	/** The general service. */
+	@Column(name = "isGSAndOil")
 	private boolean gsAndOil;
 	
 	/** The paint booth. */
+	@Column(name = "isPBAndT")
 	private boolean pbAndT;
 	
 	/** The car wash. */
+	@Column(name = "isCarWash")
 	private boolean carWash;
 	
 	/** The oil change. */
+	@Column(name = "isACAndCL")
 	private boolean acAndCL;
 	
 	/** The ac service. */
+	@Column(name = "isWAndS")
 	private boolean wAndS;
 	
 	/** The alloy for wheels. */
+	@Column(name = "isEngAndECU")
 	private boolean engAndEcu;
 	
 	/** The dent and damages. */
+	@Column(name = "isACC")
 	private boolean acc;
+
+	/**
+	 * Gets the id.
+	 *
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * Sets the id.
+	 *
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	/**
+	 * Gets the garage name.
+	 *
+	 * @return the garageName
+	 */
+	public String getGarageName() {
+		return garageName;
+	}
+
+	/**
+	 * Sets the garage name.
+	 *
+	 * @param garageName the garageName to set
+	 */
+	public void setGarageName(String garageName) {
+		this.garageName = garageName;
+	}
 
 	/**
 	 * Checks if is gs and oil.
@@ -159,4 +222,17 @@ public class GarageServices {
 	public void setAcc(boolean acc) {
 		this.acc = acc;
 	}
+
+	/**
+	 * To string.
+	 *
+	 * @return the string
+	 */
+	@Override
+	public String toString() {
+		return "GarageService [id=" + id + ", garageName=" + garageName + ", gsAndOil=" + gsAndOil + ", pbAndT="
+				+ pbAndT + ", carWash=" + carWash + ", acAndCL=" + acAndCL + ", wAndS=" + wAndS + ", engAndEcu="
+				+ engAndEcu + ", acc=" + acc + "]";
+	}
+	
 }

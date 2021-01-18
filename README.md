@@ -30,3 +30,6 @@ If Loaded on localhost, Swagger could be loaded on the following URL
 
 ## API Authentication ##
 > Authentication Type : Basic
+
+## Bulk API ##
+> Ensure you refer BulkData.csv, the columns could be interchanged as the mapping had been done, please ensure that the first line is for heading.

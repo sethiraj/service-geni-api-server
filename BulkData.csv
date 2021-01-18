@@ -1,0 +1,2 @@
+GarageTitle,Latitude,Longitude,Contact,AltContact,PaymentMode,YearOfEstablishment,Location,Address,OperationHours,WeekOff,PinCode,isGSAndOil,isPBAndT,isCarWash,isACAndCL,isWAndS,isEngAndECU,isACC
+TestGargageOne,18.564220,73.787201,46862332,8951322,Cash,2003,Aundh,Aundh,9AM -7PM,Sun,411007,true,true,true,true,true,true,true
