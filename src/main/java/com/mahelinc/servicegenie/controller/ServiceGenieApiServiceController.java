@@ -34,7 +34,6 @@ import io.swagger.annotations.Api;
 @RestController
 @RequestMapping("/api/v1")
 @Api(value = "/api/v1")
-@CrossOrigin
 public class ServiceGenieApiServiceController {
 
 	/** The garage service. */
@@ -51,6 +50,7 @@ public class ServiceGenieApiServiceController {
 	 * @param location the location
 	 * @return the garages on location
 	 */
+	@CrossOrigin(origins = "*")
 	@GetMapping("/getGaragesOnLocation")
 	public ResponseEntity<List<Garage>> getGaragesOnLocation(@RequestParam("location") String location) {
 		List<Garage> garages = garageService.findAllGaragesInSpecifiedLocation(location);
@@ -63,6 +63,7 @@ public class ServiceGenieApiServiceController {
 	 * @param name the name
 	 * @return the garage details by name
 	 */
+	@CrossOrigin(origins = "*")
 	@GetMapping("/getGarageDetailsByName")
 	public ResponseEntity<GarageDetails> getGarageDetailsByName(@RequestParam("garageName") String name) {
 		GarageDetails garageDetails = garageService.findGarageDetails(name);
@@ -75,6 +76,7 @@ public class ServiceGenieApiServiceController {
 	 * @param garageDetails the garage details
 	 * @return the response entity
 	 */
+	@CrossOrigin(origins = "*")
 	@PostMapping("/createGarage")
 	public ResponseEntity<String> createGarage(@ModelAttribute GarageDetails garageDetails) {
 		garageService.createGarageWithServices(garageDetails);
@@ -89,6 +91,7 @@ public class ServiceGenieApiServiceController {
 	 * @param distance the distance
 	 * @return the garages on lat and long
 	 */
+	@CrossOrigin(origins = "*")
 	@GetMapping("/getGaragesByLatAndLong")
 	public ResponseEntity<List<GarageDetails>> getGaragesOnLatAndLong(@RequestParam("latitude") double latitude,
 			@RequestParam("longitude") double longitude, @RequestParam("distanceInKms") double distance) {
@@ -105,6 +108,7 @@ public class ServiceGenieApiServiceController {
 	 *
 	 * @return the all unique locations
 	 */
+	@CrossOrigin(origins = "*")
 	@GetMapping("/getAllUniqueGarageLocations")
 	public ResponseEntity<List<String>> getAllUniqueLocations() {
 		List<String> uniqueGarageLocations = garageService.getUniqueGarageLocations();
@@ -116,6 +120,7 @@ public class ServiceGenieApiServiceController {
 	 *
 	 * @return the all garages
 	 */
+	@CrossOrigin(origins = "*")
 	@GetMapping("/getAllGarages")
 	public ResponseEntity<List<Garage>> getAllGarages() {
 		return new ResponseEntity<List<Garage>>(garageService.findAllGarages(), HttpStatus.OK);
@@ -127,6 +132,7 @@ public class ServiceGenieApiServiceController {
 	 * @param regexName the regex name
 	 * @return the all garages with regex name
 	 */
+	@CrossOrigin(origins = "*")
 	@GetMapping("/getAllGaragesUsingRegex")
 	public ResponseEntity<List<GarageDetails>> getAllGaragesWithRegexName(
 			@RequestParam("garageNameContaining") String regexName) {
@@ -139,6 +145,7 @@ public class ServiceGenieApiServiceController {
 	 * @param serviceID the service ID
 	 * @return the all garages with service
 	 */
+	@CrossOrigin(origins = "*")
 	@GetMapping("/getAllGaragesWithService")
 	public ResponseEntity<List<Garage>> getAllGaragesWithService(@RequestParam("service") String serviceID) {
 		return new ResponseEntity<List<Garage>>(garageJobsService.getAllGaragesWithJob(serviceID), HttpStatus.OK);
@@ -150,6 +157,7 @@ public class ServiceGenieApiServiceController {
 	 * @param multiPartFile the multi part file
 	 * @return the response entity
 	 */
+	@CrossOrigin(origins = "*")
 	@PostMapping("/bulkUpload")
 	public ResponseEntity<String> bulkUpload(@RequestPart(value = "file") MultipartFile multiPartFile) {
 		try {
@@ -167,6 +175,7 @@ public class ServiceGenieApiServiceController {
 	 * @param location the location
 	 * @return the all garages with name on location
 	 */
+	@CrossOrigin(origins = "*")
 	@GetMapping("/getAllGaragesWithNameOnLocation")
 	public ResponseEntity<List<Garage>> getAllGaragesWithNameOnLocation(@RequestParam("garageName") String garageName,
 			@RequestParam("location") String location) {
