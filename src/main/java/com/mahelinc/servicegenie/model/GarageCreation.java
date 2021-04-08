@@ -1,114 +1,119 @@
 /**
  * 
  */
-package com.mahelinc.servicegenie.entity;
+package com.mahelinc.servicegenie.model;
 
-import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.opencsv.bean.CsvRecurse;
 
 /**
- * The Entity Class For Garage.
- *
  * @author surendrane
+ *
  */
-@Entity
-@Table(name = "Garage")
-public class Garage implements Serializable {
-
-	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = 1L;
-
-	/** The id. */
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	protected Long id;
+public class GarageCreation {
 
 	/** The garage name. */
-	@Column(name = "GarageName")
 	private String garageTitle;
 
 	/** The latitude. */
-	@Column(name = "Latitude")
 	private double latitude;
 
 	/** The longitude. */
-	@Column(name = "Longitude")
 	private double longitude;
 
 	/** The phone number. */
-	@Column(name = "Contact")
 	private String contact;
 
 	/** The alt contact. */
-	@Column(name = "AltContact")
 	private String altContact;
 
 	/** The payment mode. */
-	@Column(name = "PaymentMode")
 	private String paymentMode;
 
 	/** The date of est. */
-	@Column(name = "YearOfEstablishment")
 	private String dateOfEst;
 
 	/** The location address. */
-	@Column(name = "Location")
 	private String location;
 
 	/** The address. */
-	@Column(name = "Address")
 	private String address;
 
 	/** The operating hours. */
-	@Column(name = "OperationHours")
 	private String operatingHours;
 
 	/** The week off. */
-	@Column(name = "WeekOff")
 	private String weekOff;
 
 	/** The pin code. */
-	@Column(name = "PinCode")
 	private String pinCode;
 
-	/** The description. */
-	@Column(name = "Description")
-	private String description;
+	/** The garage services. */
+	@CsvRecurse
+	private GarageServices garageServices;
+
+	/** The garage description. */
+	private String garageDescription;
 
 	/** The verified. */
-	@Column(name = "Verified")
 	private boolean verified = false;
 
 	/** The starting price. */
-	@Column(name = "StartingPrice")
 	private int startingPrice;
 
-	/** The garage image. */
-	@Column(name = "GarageImage")
-	private String garageImage;
-
 	/**
-	 * Gets the id.
+	 * Gets the garage description.
 	 *
-	 * @return the id
+	 * @return the garageDescription
 	 */
-	public Long getId() {
-		return id;
+	public String getGarageDescription() {
+		return garageDescription;
 	}
 
 	/**
-	 * Sets the id.
+	 * Sets the garage description.
 	 *
-	 * @param id the new id
+	 * @param garageDescription the garageDescription to set
 	 */
-	public void setId(Long id) {
-		this.id = id;
+	public void setGarageDescription(String garageDescription) {
+		this.garageDescription = garageDescription;
 	}
+
+	/**
+	 * Checks if is verified.
+	 *
+	 * @return the verified
+	 */
+	public boolean isVerified() {
+		return verified;
+	}
+
+	/**
+	 * Sets the verified.
+	 *
+	 * @param verified the verified to set
+	 */
+	public void setVerified(boolean verified) {
+		this.verified = verified;
+	}
+
+	/**
+	 * Gets the starting price.
+	 *
+	 * @return the startingPrice
+	 */
+	public int getStartingPrice() {
+		return startingPrice;
+	}
+
+	/**
+	 * Sets the starting price.
+	 *
+	 * @param startingPrice the startingPrice to set
+	 */
+	public void setStartingPrice(int startingPrice) {
+		this.startingPrice = startingPrice;
+	}
+
 
 	/**
 	 * Gets the garage title.
@@ -327,89 +332,21 @@ public class Garage implements Serializable {
 	}
 
 	/**
-	 * Gets the description.
+	 * Gets the garage services.
 	 *
-	 * @return the description
+	 * @return the garage services
 	 */
-	public String getDescription() {
-		return description;
+	public GarageServices getGarageServices() {
+		return garageServices;
 	}
 
 	/**
-	 * Sets the description.
+	 * Sets the garage services.
 	 *
-	 * @param description the new description
+	 * @param garageServices the new garage services
 	 */
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	/**
-	 * Checks if is verified.
-	 *
-	 * @return true, if is verified
-	 */
-	public boolean isVerified() {
-		return verified;
-	}
-
-	/**
-	 * Sets the verified.
-	 *
-	 * @param verified the new verified
-	 */
-	public void setVerified(boolean verified) {
-		this.verified = verified;
-	}
-
-	/**
-	 * Gets the starting price.
-	 *
-	 * @return the starting price
-	 */
-	public int getStartingPrice() {
-		return startingPrice;
-	}
-
-	/**
-	 * Sets the starting price.
-	 *
-	 * @param l the new starting price
-	 */
-	public void setStartingPrice(int l) {
-		this.startingPrice = l;
-	}
-
-	/**
-	 * Gets the garage image.
-	 *
-	 * @return the garage image
-	 */
-	public String getGarageImage() {
-		return garageImage;
-	}
-
-	/**
-	 * Sets the garage image.
-	 *
-	 * @param garageImage the new garage image
-	 */
-	public void setGarageImage(String garageImage) {
-		this.garageImage = garageImage;
-	}
-
-	/**
-	 * To string.
-	 *
-	 * @return the string
-	 */
-	@Override
-	public String toString() {
-		return "Garage [id=" + id + ", garageTitle=" + garageTitle + ", latitude=" + latitude + ", longitude="
-				+ longitude + ", contact=" + contact + ", altContact=" + altContact + ", paymentMode=" + paymentMode
-				+ ", dateOfEst=" + dateOfEst + ", location=" + location + ", address=" + address + ", operatingHours="
-				+ operatingHours + ", weekOff=" + weekOff + ", pinCode=" + pinCode + ", description=" + description
-				+ ", verified=" + verified + ", startingPrice=" + startingPrice + ", garageImage=" + garageImage + "]";
+	public void setGarageServices(GarageServices garageServices) {
+		this.garageServices = garageServices;
 	}
 
 }

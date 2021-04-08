@@ -83,4 +83,7 @@ public interface GarageRepository extends PagingAndSortingRepository<Garage, Lon
 	 */
 	@Query("SELECT DISTINCT g.location FROM Garage g")
 	public List<String> findDistinctLocations();
+	
+	
+	public Garage findGarageById(long id);
 }

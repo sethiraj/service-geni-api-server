@@ -8,7 +8,10 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mahelinc.servicegenie.entity.Garage;
+import com.mahelinc.servicegenie.model.GarageCreation;
 import com.mahelinc.servicegenie.model.GarageDetails;
+
+
 
 /**
  * The Interface GarageService.
@@ -20,9 +23,9 @@ public interface GarageService {
 	/**
 	 * Find all nearest garages with indistance.
 	 *
-	 * @param latitude the latitude
+	 * @param latitude   the latitude
 	 * @param longtitude the longtitude
-	 * @param distance the distance
+	 * @param distance   the distance
 	 * @return the list
 	 */
 	List<Garage> findAllNearestGaragesWithIndistance(double latitude, double longtitude, double distance);
@@ -47,8 +50,9 @@ public interface GarageService {
 	 * Creates the garage with services.
 	 *
 	 * @param garage the garage
+	 * @param imageFile the image file
 	 */
-	void createGarageWithServices(GarageDetails garage);
+	void createGarageWithServices(GarageCreation garage, MultipartFile imageFile);
 
 	/**
 	 * Gets the unique garage locations.
@@ -71,16 +75,16 @@ public interface GarageService {
 	 * @return the list
 	 */
 	List<GarageDetails> findAllGaragesWithName(final String regexName);
-	
+
 	/**
 	 * Find all garages with name and location.
 	 *
 	 * @param regexName the regex name
-	 * @param Location the location
+	 * @param location the location
 	 * @return the list
 	 */
-	List<Garage> findAllGaragesWithNameAndLocation(final String regexName, final String Location);
-	
+	List<Garage> findAllGaragesWithNameAndLocation(final String regexName, final String location);
+
 	/**
 	 * Bulk upload of garages.
 	 *
@@ -88,4 +92,31 @@ public interface GarageService {
 	 * @throws Exception the exception
 	 */
 	void bulkUploadOfGarages(MultipartFile multipart) throws Exception;
+
+	/**
+	 * Gets the garage image.
+	 *
+	 * @param garageName the garage name
+	 * @param location the location
+	 * @return the garage image
+	 */
+	String getGarageImage(final String garageName, final String location);
+	
+	/**
+	 * Upload image for garage.
+	 *
+	 * @param garageName the garage name
+	 * @param location the location
+	 * @param multipart the multipart
+	 */
+	void uploadImageForGarage(String garageName, String location, MultipartFile multipart);
+	
+	/**
+	 * Upload image for garage.
+	 *
+	 * @param garageID the garage ID
+	 * @param multipart the multipart
+	 */
+	void uploadImageForGarage(String garageID, MultipartFile multipart);
+	
 }

@@ -54,6 +54,114 @@ public class GarageDetails {
 	@CsvRecurse
 	private GarageServices garageServices;
 
+	/** The average garage ratings. */
+	private String averageGarageRatings;
+
+	/** The total garage reviews. */
+	private String totalGarageReviews;
+
+	/** The garage description. */
+	private String garageDescription;
+
+	/** The verified. */
+	private boolean verified = false;
+
+	/** The starting price. */
+	private int startingPrice;
+
+	/** The garage image. */
+	private String garageImage;
+
+	/**
+	 * Gets the garage description.
+	 *
+	 * @return the garageDescription
+	 */
+	public String getGarageDescription() {
+		return garageDescription;
+	}
+
+	/**
+	 * Sets the garage description.
+	 *
+	 * @param garageDescription the garageDescription to set
+	 */
+	public void setGarageDescription(String garageDescription) {
+		this.garageDescription = garageDescription;
+	}
+
+	/**
+	 * Checks if is verified.
+	 *
+	 * @return the verified
+	 */
+	public boolean isVerified() {
+		return verified;
+	}
+
+	/**
+	 * Sets the verified.
+	 *
+	 * @param verified the verified to set
+	 */
+	public void setVerified(boolean verified) {
+		this.verified = verified;
+	}
+
+	/**
+	 * Gets the starting price.
+	 *
+	 * @return the startingPrice
+	 */
+	public int getStartingPrice() {
+		return startingPrice;
+	}
+
+	/**
+	 * Sets the starting price.
+	 *
+	 * @param startingPrice the startingPrice to set
+	 */
+	public void setStartingPrice(int startingPrice) {
+		this.startingPrice = startingPrice;
+	}
+
+	/**
+	 * Gets the average garage ratings.
+	 *
+	 * @return the average garage ratings
+	 */
+	public String getAverageGarageRatings() {
+		return averageGarageRatings;
+	}
+
+	/**
+	 * Sets the average garage ratings.
+	 *
+	 * @param averageGarageRatings the new average garage ratings
+	 */
+	public void setAverageGarageRatings(String averageGarageRatings) {
+		this.averageGarageRatings = averageGarageRatings;
+	}
+
+	/**
+	 * Gets the total garage reviews.
+	 *
+	 * @return the total garage reviews
+	 */
+	public String getTotalGarageReviews() {
+		return totalGarageReviews;
+	}
+
+	/**
+	 * Sets the total garage reviews.
+	 *
+	 * @param totalGarageReviews the new total garage reviews
+	 */
+	public void setTotalGarageReviews(String totalGarageReviews) {
+		this.totalGarageReviews = totalGarageReviews;
+	}
+
 	/**
 	 * Gets the garage title.
 	 *
@@ -286,6 +394,24 @@ public class GarageDetails {
 	 */
 	public void setGarageServices(GarageServices garageServices) {
 		this.garageServices = garageServices;
+	}
+
+	/**
+	 * Gets the garage image.
+	 *
+	 * @return the garage image
+	 */
+	public String getGarageImage() {
+		return garageImage;
+	}
+
+	/**
+	 * Sets the garage image.
+	 *
+	 * @param garageImage the new garage image
+	 */
+	public void setGarageImage(String garageImage) {
+		this.garageImage = garageImage;
 	}
 
 }

@@ -33,3 +33,10 @@ If Loaded on localhost, Swagger could be loaded on the following URL
 
 ## Bulk API ##
 > Ensure you refer BulkData.csv, the columns could be interchanged as the mapping had been done, please ensure that the first line is for heading.
+> Ensure you refer PostBulkReviews.csv, the columns could be interchanged as the mapping had been done, please ensure that the first line is for heading.
+
+## Image To Base64 String ##
+Please find some URL's which could be used to convert Image files
+
+> https://www.base64-image.de/
+> https://base64.guru/converter/encode/image

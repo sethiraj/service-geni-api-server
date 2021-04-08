@@ -5,7 +5,6 @@ package com.mahelinc.servicegenie.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mahelinc.servicegenie.entity.Garage;
+import com.mahelinc.servicegenie.model.GarageCreation;
 import com.mahelinc.servicegenie.model.GarageDetails;
 import com.mahelinc.servicegenie.service.GarageJobsService;
 import com.mahelinc.servicegenie.service.GarageService;
@@ -43,7 +43,7 @@ public class ServiceGenieApiServiceController {
 	/** The garage jobs service. */
 	@Autowired
 	GarageJobsService garageJobsService;
-
+	
 	/**
 	 * Gets the garages on location.
 	 *
@@ -74,12 +74,13 @@ public class ServiceGenieApiServiceController {
 	 * Creates the garage.
 	 *
 	 * @param garageDetails the garage details
+	 * @param image the image
 	 * @return the response entity
 	 */
 	@CrossOrigin(origins = "*")
 	@PostMapping("/createGarage")
-	public ResponseEntity<String> createGarage(@ModelAttribute GarageDetails garageDetails) {
-		garageService.createGarageWithServices(garageDetails);
+	public ResponseEntity<String> createGarage(@ModelAttribute GarageCreation garageDetails, @RequestParam MultipartFile image) {
+		garageService.createGarageWithServices(garageDetails, image);
 		return new ResponseEntity<String>("Success", HttpStatus.OK);
 	}
 
@@ -182,4 +183,5 @@ public class ServiceGenieApiServiceController {
 		return new ResponseEntity<List<Garage>>(garageService.findAllGaragesWithNameAndLocation(garageName, location),
 				HttpStatus.OK);
 	}
+	
 }
