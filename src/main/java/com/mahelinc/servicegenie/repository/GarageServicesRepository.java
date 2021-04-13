@@ -24,9 +24,12 @@ public interface GarageServicesRepository
 	 * Find garage service by garage name.
 	 *
 	 * @param garageName the garage name
+	 * @param location the location
 	 * @return the garage service details
 	 */
-	GarageServiceDetails findGarageServiceByGarageName(String garageName);
+	GarageServiceDetails findGarageServiceByGarageNameAndLocation(String garageName, String location);
+	
+	
 	
 	/**
 	 * Find all.

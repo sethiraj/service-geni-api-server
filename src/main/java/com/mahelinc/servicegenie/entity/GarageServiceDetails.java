@@ -32,6 +32,10 @@ public class GarageServiceDetails implements Serializable {
 	/** The garage name. */
 	@Column(name = "GarageName")
 	private String garageName;
+	
+	/** The location. */
+	@Column(name = "Location")
+	private String location;
 
 	/** The general service. */
 	@Column(name = "isGSAndOil")
@@ -221,6 +225,24 @@ public class GarageServiceDetails implements Serializable {
 	 */
 	public void setAcc(boolean acc) {
 		this.acc = acc;
+	}
+
+	/**
+	 * Gets the location.
+	 *
+	 * @return the location
+	 */
+	public String getLocation() {
+		return location;
+	}
+
+	/**
+	 * Sets the location.
+	 *
+	 * @param location the location to set
+	 */
+	public void setLocation(String location) {
+		this.location = location;
 	}
 
 	/**

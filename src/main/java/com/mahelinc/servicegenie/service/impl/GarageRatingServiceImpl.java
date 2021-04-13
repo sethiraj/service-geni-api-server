@@ -16,8 +16,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mahelinc.servicegenie.entity.Garage;
 import com.mahelinc.servicegenie.entity.GarageRating;
 import com.mahelinc.servicegenie.model.GarageOverallRating;
+import com.mahelinc.servicegenie.model.GarageWithRatings;
 import com.mahelinc.servicegenie.model.PostReview;
 import com.mahelinc.servicegenie.repository.GarageRatingRepository;
 import com.mahelinc.servicegenie.service.GarageRatingService;
@@ -64,8 +66,6 @@ public class GarageRatingServiceImpl implements GarageRatingService {
 		} else {
 			garageOverallRating.setAverageGarageRatings(Double.toString(avgScore));
 		}
-
-		System.out.println("In Here");
 		return garageOverallRating;
 	}
 
@@ -148,7 +148,43 @@ public class GarageRatingServiceImpl implements GarageRatingService {
 		garageRating.setRating(Double.parseDouble(postReview.getRating()));
 		garageRating.setReview(postReview.getReview());
 		garageRating.setReviewerName(postReview.getReviewerName());
-		System.out.println(garageRating.getGarageName());
 		return garageRating;
+	}
+
+	/**
+	 * Include ratings for garage.
+	 *
+	 * @param garage the garage
+	 * @return the garage with ratings
+	 */
+	@Override
+	public GarageWithRatings includeRatingsForGarage(Garage garage) {
+		GarageWithRatings garageWithRatings = new GarageWithRatings();
+		garageWithRatings.setAddress(garage.getAddress());
+		garageWithRatings.setGarageTitle(garage.getGarageTitle());
+		garageWithRatings.setLatitude(garage.getLatitude());
+		garageWithRatings.setLongitude(garage.getLongitude());
+		garageWithRatings.setLocation(garage.getLocation());
+		garageWithRatings.setOperatingHours(garage.getOperatingHours());
+		garageWithRatings.setContact(garage.getContact());
+		garageWithRatings.setAltContact(garage.getAltContact());
+		garageWithRatings.setDateOfEst(garage.getDateOfEst());
+		garageWithRatings.setPaymentMode(garage.getPaymentMode());
+		garageWithRatings.setPinCode(garage.getPinCode());
+		garageWithRatings.setWeekOff(garage.getWeekOff());
+		garageWithRatings.setDescription(garage.getDescription());
+		garageWithRatings.setStartingPrice(garage.getStartingPrice());
+		/*
+		 * Get Garage Ratings
+		 */
+		GarageOverallRating garageOverallRating = findAverageRatingForGarage(garage.getGarageTitle(),
+				garage.getLocation());
+		garageWithRatings.setGarageOverallRating(garageOverallRating);
+		garageWithRatings.setVerified(garage.isVerified());
+		/*
+		 * Get the Garage Image From Server, convert into Base64
+		 */
+		garageWithRatings.setGarageImage(garage.getGarageImage());
+		return garageWithRatings;
 	}
 }

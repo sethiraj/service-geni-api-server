@@ -14,6 +14,7 @@ import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -28,6 +29,7 @@ import com.mahelinc.servicegenie.model.GarageDetails;
 import com.mahelinc.servicegenie.model.GarageOverallRating;
 import com.mahelinc.servicegenie.model.GarageServices;
 import com.mahelinc.servicegenie.model.GarageWithImage;
+import com.mahelinc.servicegenie.model.GarageWithRatings;
 import com.mahelinc.servicegenie.repository.GarageRepository;
 import com.mahelinc.servicegenie.repository.GarageServicesRepository;
 import com.mahelinc.servicegenie.service.GarageRatingService;
@@ -52,6 +54,7 @@ public class GarageServiceImpl implements GarageService {
 	@Autowired
 	private GarageServicesRepository garageServicesRepository;
 
+	/** The garage rating service. */
 	@Autowired
 	private GarageRatingService garageRatingService;
 
@@ -78,8 +81,33 @@ public class GarageServiceImpl implements GarageService {
 	 * @param imageFile the image file
 	 */
 	@Override
-	public void createGarageWithServices(GarageCreation garage, MultipartFile imageFile) {
-		Garage garageEntity = new Garage();
+	public void createGarageWithServices(GarageCreation garage, Optional<MultipartFile> imageFile) {
+
+		Garage exsistingGarage = garageRepository
+				.findGarageByGarageTitleContainingIgnoreCaseAndLocation(garage.getGarageTitle(), garage.getLocation())
+				.get(0);
+		if (exsistingGarage != null) {
+			GarageServiceDetails garageServiceDetails = garageServicesRepository
+					.findGarageServiceByGarageNameAndLocation(garage.getGarageTitle(), garage.getLocation());
+			updateGarageDetails(garage, exsistingGarage, garageServiceDetails, imageFile);
+		} else {
+			Garage garageEntity = new Garage();
+			GarageServiceDetails garageServiceDetails = new GarageServiceDetails();
+			updateGarageDetails(garage, garageEntity, garageServiceDetails, imageFile);
+		}
+	}
+
+	/**
+	 * Update garage details.
+	 *
+	 * @param garage the garage
+	 * @param garageEntity the garage entity
+	 * @param garageServiceDetails the garage service details
+	 * @param imageFile the image file
+	 */
+	private void updateGarageDetails(GarageCreation garage, Garage garageEntity,
+			GarageServiceDetails garageServiceDetails, Optional<MultipartFile> imageFile) {
+
 		garageEntity.setGarageTitle(garage.getGarageTitle());
 		garageEntity.setAddress(garage.getAddress());
 		garageEntity.setGarageTitle(garage.getGarageTitle());
@@ -99,7 +127,6 @@ public class GarageServiceImpl implements GarageService {
 		garageEntity.setGarageImage(uploadAndSetUUIDForImage(imageFile));
 		garageRepository.save(garageEntity);
 
-		GarageServiceDetails garageServiceDetails = new GarageServiceDetails();
 		GarageServices garageServices = garage.getGarageServices();
 		garageServiceDetails.setGarageName(garage.getGarageTitle());
 		garageServiceDetails.setAcAndCL(garageServices.isAcAndCL());
@@ -109,7 +136,9 @@ public class GarageServiceImpl implements GarageService {
 		garageServiceDetails.setGsAndOil(garageServices.isGsAndOil());
 		garageServiceDetails.setPbAndT(garageServices.isPbAndT());
 		garageServiceDetails.setwAndS(garageServices.iswAndS());
+		garageServiceDetails.setLocation(garage.getLocation());
 		garageServicesRepository.save(garageServiceDetails);
+
 	}
 
 	/**
@@ -163,7 +192,7 @@ public class GarageServiceImpl implements GarageService {
 	 */
 	private GarageDetails getGarageWithServices(final Garage garage) {
 		GarageServiceDetails garageService = garageServicesRepository
-				.findGarageServiceByGarageName(garage.getGarageTitle());
+				.findGarageServiceByGarageNameAndLocation(garage.getGarageTitle(), garage.getLocation());
 
 		GarageDetails garageDetails = new GarageDetails();
 		garageDetails.setAddress(garage.getAddress());
@@ -213,13 +242,49 @@ public class GarageServiceImpl implements GarageService {
 	 * @return the list
 	 */
 	@Override
-	public List<GarageDetails> findAllGaragesWithName(String regexName) {
-		List<GarageDetails> garageDetailsList = new ArrayList<GarageDetails>();
+	public List<GarageWithRatings> findAllGaragesWithName(String regexName) {
+		List<GarageWithRatings> garageDetailsList = new ArrayList<GarageWithRatings>();
 		List<Garage> garages = garageRepository.findGarageByGarageTitleContainingIgnoreCase(regexName);
 		for (Garage garage : garages) {
-			garageDetailsList.add(getGarageWithServices(garage));
+			garageDetailsList.add(getGarageWithRatings(garage));
 		}
 		return garageDetailsList;
+	}
+
+	/**
+	 * Gets the garage with ratings.
+	 *
+	 * @param garage the garage
+	 * @return the garage with ratings
+	 */
+	private GarageWithRatings getGarageWithRatings(Garage garage) {
+		GarageWithRatings garageWithRatings = new GarageWithRatings();
+		garageWithRatings.setAddress(garage.getAddress());
+		garageWithRatings.setGarageTitle(garage.getGarageTitle());
+		garageWithRatings.setLatitude(garage.getLatitude());
+		garageWithRatings.setLongitude(garage.getLongitude());
+		garageWithRatings.setLocation(garage.getLocation());
+		garageWithRatings.setOperatingHours(garage.getOperatingHours());
+		garageWithRatings.setContact(garage.getContact());
+		garageWithRatings.setAltContact(garage.getAltContact());
+		garageWithRatings.setDateOfEst(garage.getDateOfEst());
+		garageWithRatings.setPaymentMode(garage.getPaymentMode());
+		garageWithRatings.setPinCode(garage.getPinCode());
+		garageWithRatings.setWeekOff(garage.getWeekOff());
+		garageWithRatings.setDescription(garage.getDescription());
+		garageWithRatings.setStartingPrice(garage.getStartingPrice());
+		/*
+		 * Get Garage Ratings
+		 */
+		GarageOverallRating garageOverallRating = garageRatingService
+				.findAverageRatingForGarage(garage.getGarageTitle(), garage.getLocation());
+		garageWithRatings.setGarageOverallRating(garageOverallRating);
+		garageWithRatings.setVerified(garage.isVerified());
+		/*
+		 * Get the Garage Image From Server, convert into Base64
+		 */
+		garageWithRatings.setGarageImage(garage.getGarageImage());
+		return garageWithRatings;
 	}
 
 	/**
@@ -321,6 +386,7 @@ public class GarageServiceImpl implements GarageService {
 				garageServiceDetails.setGsAndOil(garageServices.isGsAndOil());
 				garageServiceDetails.setPbAndT(garageServices.isPbAndT());
 				garageServiceDetails.setwAndS(garageServices.iswAndS());
+				garageServiceDetails.setLocation(garage.getLocation());
 				garageServiceDetailsList.add(garageServiceDetails);
 			}
 			garageRepository.saveAll(garageList);
@@ -336,8 +402,41 @@ public class GarageServiceImpl implements GarageService {
 	 * @return the list
 	 */
 	@Override
-	public List<Garage> findAllGaragesWithNameAndLocation(String regexName, String location) {
-		return garageRepository.findGarageByGarageTitleContainingIgnoreCaseAndLocation(regexName, location);
+	public List<GarageDetails> findAllGaragesWithNameAndLocation(String regexName, String location) {
+		List<GarageDetails> garageDetailsList = new ArrayList<GarageDetails>();
+		List<Garage> garages = garageRepository.findGarageByGarageTitleContainingIgnoreCaseAndLocation(regexName,
+				location);
+		for (Garage garage : garages) {
+			garageDetailsList.add(getGarageWithServices(garage));
+		}
+		return garageDetailsList;
+	}
+
+	/**
+	 * Upload and set UUID for image.
+	 *
+	 * @param imageFile the image file
+	 * @return the string
+	 */
+	private String uploadAndSetUUIDForImage(Optional<MultipartFile> imageFile) {
+		String uuidString = StringUtils.EMPTY;
+		try {
+			StringBuilder sb = new StringBuilder(System.getProperty("user.dir")).append("/").append(UPLOAD_LOC);
+			File uploadPic = new File(sb.toString());
+			if (!uploadPic.exists()) {
+				uploadPic.mkdir();
+			}
+			if (imageFile.isPresent()) {
+				UUID uuid = UUID.nameUUIDFromBytes(imageFile.get().getBytes());
+				StringBuilder lastFileName = sb.append("/").append(uuid.toString());
+				imageFile.get().transferTo(new File(lastFileName.toString()));
+				uuidString = uuid.toString();
+			} else {
+				uuidString = StringUtils.EMPTY;
+			}
+		} catch (Exception e) {
+		}
+		return uuidString;
 	}
 
 	/**
@@ -424,6 +523,13 @@ public class GarageServiceImpl implements GarageService {
 		return getUploadedImageAsBase64String(garage.getGarageImage());
 	}
 
+	/**
+	 * Upload image for garage.
+	 *
+	 * @param garageName the garage name
+	 * @param location the location
+	 * @param multipart the multipart
+	 */
 	@Override
 	public void uploadImageForGarage(String garageName, String location, MultipartFile multipart) {
 		Garage garage = garageRepository.findGarageByGarageTitleContainingIgnoreCaseAndLocation(garageName, location)
@@ -432,6 +538,12 @@ public class GarageServiceImpl implements GarageService {
 		garageRepository.save(garage);
 	}
 
+	/**
+	 * Upload image for garage.
+	 *
+	 * @param garageID the garage ID
+	 * @param multipart the multipart
+	 */
 	@Override
 	public void uploadImageForGarage(String garageID, MultipartFile multipart) {
 		Garage garage = garageRepository.findGarageById(Long.parseLong(garageID));

@@ -38,5 +38,17 @@ If Loaded on localhost, Swagger could be loaded on the following URL
 ## Image To Base64 String ##
 Please find some URL's which could be used to convert Image files
 
-> https://www.base64-image.de/
-> https://base64.guru/converter/encode/image
+- > https://www.base64-image.de/
+- > https://base64.guru/converter/encode/image
+
+## Database Configuration ##
+Please use Docker Compose file (docker-compose.yml) for instantiating MYSQL server
+
+	docker-compose up -d
+
+The above command would ensure the latest mysql-server would be up as Docker container, please ensure the volume attached to the right path on compose file.
+Run the InitialSQLCommands for Database SetUp 
+
+	create database servicegeni
+	create user 'admin'@'%' identified by 'pranav'
+	grant all on servicegeni.* to 'admin'@'%'

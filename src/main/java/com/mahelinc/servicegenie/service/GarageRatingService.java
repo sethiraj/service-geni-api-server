@@ -7,8 +7,10 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mahelinc.servicegenie.entity.Garage;
 import com.mahelinc.servicegenie.entity.GarageRating;
 import com.mahelinc.servicegenie.model.GarageOverallRating;
+import com.mahelinc.servicegenie.model.GarageWithRatings;
 import com.mahelinc.servicegenie.model.PostReview;
 
 /**
@@ -40,6 +42,7 @@ public interface GarageRatingService {
 	 * Bulk insert of reviews.
 	 *
 	 * @param multiPartFile the multi part file
+	 * @return true, if successful
 	 */
 	boolean bulkInsertOfReviews(final MultipartFile multiPartFile);
 
@@ -49,5 +52,13 @@ public interface GarageRatingService {
 	 * @param postReview the post review
 	 */
 	void postReview(final PostReview postReview);
+	
+	/**
+	 * Include ratings for garage.
+	 *
+	 * @param garage the garage
+	 * @return the garage with ratings
+	 */
+	GarageWithRatings includeRatingsForGarage(final Garage garage);
 
 }

@@ -62,7 +62,7 @@ public class GarageJobsServiceImpl implements GarageJobsService {
 	@Override
 	public GarageDetails getGarageDetails(Garage garage) {
 		GarageServiceDetails garageService = garageServicesRepository
-				.findGarageServiceByGarageName(garage.getGarageTitle());
+				.findGarageServiceByGarageNameAndLocation(garage.getGarageTitle(), garage.getLocation());
 
 		GarageDetails garageDetails = new GarageDetails();
 		garageDetails.setAddress(garage.getAddress());

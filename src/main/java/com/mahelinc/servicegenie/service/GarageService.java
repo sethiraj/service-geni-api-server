@@ -4,14 +4,14 @@
 package com.mahelinc.servicegenie.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mahelinc.servicegenie.entity.Garage;
 import com.mahelinc.servicegenie.model.GarageCreation;
 import com.mahelinc.servicegenie.model.GarageDetails;
-
-
+import com.mahelinc.servicegenie.model.GarageWithRatings;
 
 /**
  * The Interface GarageService.
@@ -52,7 +52,7 @@ public interface GarageService {
 	 * @param garage the garage
 	 * @param imageFile the image file
 	 */
-	void createGarageWithServices(GarageCreation garage, MultipartFile imageFile);
+	void createGarageWithServices(GarageCreation garage, Optional<MultipartFile> imageFile);
 
 	/**
 	 * Gets the unique garage locations.
@@ -74,7 +74,7 @@ public interface GarageService {
 	 * @param regexName the regex name
 	 * @return the list
 	 */
-	List<GarageDetails> findAllGaragesWithName(final String regexName);
+	List<GarageWithRatings> findAllGaragesWithName(final String regexName);
 
 	/**
 	 * Find all garages with name and location.
@@ -83,7 +83,7 @@ public interface GarageService {
 	 * @param location the location
 	 * @return the list
 	 */
-	List<Garage> findAllGaragesWithNameAndLocation(final String regexName, final String location);
+	List<GarageDetails> findAllGaragesWithNameAndLocation(final String regexName, final String location);
 
 	/**
 	 * Bulk upload of garages.
@@ -118,5 +118,5 @@ public interface GarageService {
 	 * @param multipart the multipart
 	 */
 	void uploadImageForGarage(String garageID, MultipartFile multipart);
-	
+		
 }
