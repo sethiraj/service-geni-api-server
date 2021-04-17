@@ -148,8 +148,13 @@ public class GarageServiceImpl implements GarageService {
 	 * @return the list
 	 */
 	@Override
-	public List<Garage> findAllGaragesInSpecifiedLocation(String locationAddress) {
-		return garageRepository.findGaragesByLocationContainingIgnoreCase(locationAddress);
+	public List<GarageWithRatings> findAllGaragesInSpecifiedLocation(String locationAddress) {		
+		List<GarageWithRatings> garageDetailsList = new ArrayList<GarageWithRatings>();
+		List<Garage> garages = garageRepository.findGaragesByLocationContainingIgnoreCase(locationAddress);
+		for (Garage garage : garages) {
+			garageDetailsList.add(getGarageWithRatings(garage));
+		}
+		return garageDetailsList;
 	}
 
 	/**

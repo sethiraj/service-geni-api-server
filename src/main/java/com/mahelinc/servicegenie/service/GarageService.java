@@ -36,7 +36,7 @@ public interface GarageService {
 	 * @param locationAddress the location address
 	 * @return the list
 	 */
-	List<Garage> findAllGaragesInSpecifiedLocation(String locationAddress);
+	List<GarageWithRatings> findAllGaragesInSpecifiedLocation(String locationAddress);
 
 	/**
 	 * Find garage details.

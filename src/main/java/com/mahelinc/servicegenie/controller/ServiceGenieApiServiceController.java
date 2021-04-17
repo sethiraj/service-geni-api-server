@@ -60,9 +60,9 @@ public class ServiceGenieApiServiceController {
 	 * @return the garages on location
 	 */
 	@GetMapping("/getGaragesOnLocation")
-	public ResponseEntity<List<Garage>> getGaragesOnLocation(@RequestParam("location") String location) {
-		List<Garage> garages = garageService.findAllGaragesInSpecifiedLocation(location);
-		return new ResponseEntity<List<Garage>>(garages, HttpStatus.OK);
+	public ResponseEntity<List<GarageWithRatings>> getGaragesOnLocation(@RequestParam("location") String location) {
+		List<GarageWithRatings> garages = garageService.findAllGaragesInSpecifiedLocation(location);
+		return new ResponseEntity<List<GarageWithRatings>>(garages, HttpStatus.OK);
 	}
 
 	/**
