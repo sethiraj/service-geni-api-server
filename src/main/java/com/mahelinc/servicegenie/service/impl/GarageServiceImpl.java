@@ -14,7 +14,6 @@ import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.UUID;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -81,15 +80,13 @@ public class GarageServiceImpl implements GarageService {
 	 * @param imageFile the image file
 	 */
 	@Override
-	public void createGarageWithServices(GarageCreation garage, Optional<MultipartFile> imageFile) {
-
-		Garage exsistingGarage = garageRepository
-				.findGarageByGarageTitleContainingIgnoreCaseAndLocation(garage.getGarageTitle(), garage.getLocation())
-				.get(0);
-		if (exsistingGarage != null) {
+	public void createGarageWithServices(GarageCreation garage, MultipartFile imageFile) {
+		List<Garage> exsistingGarage = garageRepository
+				.findGarageByGarageTitleContainingIgnoreCaseAndLocation(garage.getGarageTitle(), garage.getLocation());
+		if (exsistingGarage.size() > 0) {
 			GarageServiceDetails garageServiceDetails = garageServicesRepository
 					.findGarageServiceByGarageNameAndLocation(garage.getGarageTitle(), garage.getLocation());
-			updateGarageDetails(garage, exsistingGarage, garageServiceDetails, imageFile);
+			updateGarageDetails(garage, exsistingGarage.get(0), garageServiceDetails, imageFile);
 		} else {
 			Garage garageEntity = new Garage();
 			GarageServiceDetails garageServiceDetails = new GarageServiceDetails();
@@ -100,13 +97,13 @@ public class GarageServiceImpl implements GarageService {
 	/**
 	 * Update garage details.
 	 *
-	 * @param garage the garage
-	 * @param garageEntity the garage entity
+	 * @param garage               the garage
+	 * @param garageEntity         the garage entity
 	 * @param garageServiceDetails the garage service details
-	 * @param imageFile the image file
+	 * @param imageFile            the image file
 	 */
 	private void updateGarageDetails(GarageCreation garage, Garage garageEntity,
-			GarageServiceDetails garageServiceDetails, Optional<MultipartFile> imageFile) {
+			GarageServiceDetails garageServiceDetails, MultipartFile imageFile) {
 
 		garageEntity.setGarageTitle(garage.getGarageTitle());
 		garageEntity.setAddress(garage.getAddress());
@@ -148,7 +145,7 @@ public class GarageServiceImpl implements GarageService {
 	 * @return the list
 	 */
 	@Override
-	public List<GarageWithRatings> findAllGaragesInSpecifiedLocation(String locationAddress) {		
+	public List<GarageWithRatings> findAllGaragesInSpecifiedLocation(String locationAddress) {
 		List<GarageWithRatings> garageDetailsList = new ArrayList<GarageWithRatings>();
 		List<Garage> garages = garageRepository.findGaragesByLocationContainingIgnoreCase(locationAddress);
 		for (Garage garage : garages) {
@@ -423,33 +420,6 @@ public class GarageServiceImpl implements GarageService {
 	 * @param imageFile the image file
 	 * @return the string
 	 */
-	private String uploadAndSetUUIDForImage(Optional<MultipartFile> imageFile) {
-		String uuidString = StringUtils.EMPTY;
-		try {
-			StringBuilder sb = new StringBuilder(System.getProperty("user.dir")).append("/").append(UPLOAD_LOC);
-			File uploadPic = new File(sb.toString());
-			if (!uploadPic.exists()) {
-				uploadPic.mkdir();
-			}
-			if (imageFile.isPresent()) {
-				UUID uuid = UUID.nameUUIDFromBytes(imageFile.get().getBytes());
-				StringBuilder lastFileName = sb.append("/").append(uuid.toString());
-				imageFile.get().transferTo(new File(lastFileName.toString()));
-				uuidString = uuid.toString();
-			} else {
-				uuidString = StringUtils.EMPTY;
-			}
-		} catch (Exception e) {
-		}
-		return uuidString;
-	}
-
-	/**
-	 * Upload and set UUID for image.
-	 *
-	 * @param imageFile the image file
-	 * @return the string
-	 */
 	private String uploadAndSetUUIDForImage(MultipartFile imageFile) {
 		String uuidString = StringUtils.EMPTY;
 		try {
@@ -532,8 +502,8 @@ public class GarageServiceImpl implements GarageService {
 	 * Upload image for garage.
 	 *
 	 * @param garageName the garage name
-	 * @param location the location
-	 * @param multipart the multipart
+	 * @param location   the location
+	 * @param multipart  the multipart
 	 */
 	@Override
 	public void uploadImageForGarage(String garageName, String location, MultipartFile multipart) {
@@ -546,7 +516,7 @@ public class GarageServiceImpl implements GarageService {
 	/**
 	 * Upload image for garage.
 	 *
-	 * @param garageID the garage ID
+	 * @param garageID  the garage ID
 	 * @param multipart the multipart
 	 */
 	@Override

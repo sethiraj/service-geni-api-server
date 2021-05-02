@@ -4,7 +4,6 @@
 package com.mahelinc.servicegenie.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -52,7 +51,7 @@ public interface GarageService {
 	 * @param garage the garage
 	 * @param imageFile the image file
 	 */
-	void createGarageWithServices(GarageCreation garage, Optional<MultipartFile> imageFile);
+	void createGarageWithServices(GarageCreation garage, MultipartFile imageFile);
 
 	/**
 	 * Gets the unique garage locations.
