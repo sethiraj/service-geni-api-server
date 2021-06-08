@@ -52,3 +52,10 @@ Run the InitialSQLCommands for Database SetUp
 	create database servicegeni
 	create user 'admin'@'%' identified by 'pranav'
 	grant all on servicegeni.* to 'admin'@'%'
+
+## Installing Certificate ##
+Perform the following to add the SSL certificate to JRE keystore
+
+	keytool -importcert -file servicegeni.crt -alias servicegeni -keystore $JDK_HOME/jre/lib/security/cacerts
+
+We'll be asked to input the JRE keystore password. If you have never changed it, it should be the default one: changeit or changeme, depending on the operating system. Finally, keytool will ask if you want to trust this certificate: let's say yes.
