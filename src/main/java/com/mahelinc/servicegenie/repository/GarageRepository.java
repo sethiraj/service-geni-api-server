@@ -43,6 +43,14 @@ public interface GarageRepository extends PagingAndSortingRepository<Garage, Lon
 	 * @return the list
 	 */
 	public List<Garage> findGaragesByLocationContainingIgnoreCase(@Param("location") String location);
+	
+	/**
+	 * Find garages by location.
+	 *
+	 * @param location the location
+	 * @return the list
+	 */
+	public List<Garage> findGaragesByLocation(@Param("location") String location);
 
 	/**
 	 * Find garage by garage title containing ignore case.
