@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Lob;
 
 /**
  * The Class GarageRating.
@@ -39,6 +40,7 @@ public class GarageRating implements Serializable {
 	private double rating;
 
 	/** The review. */
+	@Lob
 	@Column(name = "Review")
 	private String review;
 
