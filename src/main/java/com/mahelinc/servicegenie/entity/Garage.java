@@ -77,6 +77,7 @@ public class Garage implements Serializable {
 	private String pinCode;
 
 	/** The description. */
+	@Lob
 	@Column(name = "Description")
 	private String description;
 
