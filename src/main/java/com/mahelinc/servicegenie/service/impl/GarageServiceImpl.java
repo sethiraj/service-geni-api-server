@@ -147,7 +147,7 @@ public class GarageServiceImpl implements GarageService {
 	@Override
 	public List<GarageWithRatings> findAllGaragesInSpecifiedLocation(String locationAddress) {
 		List<GarageWithRatings> garageDetailsList = new ArrayList<GarageWithRatings>();
-		List<Garage> garages = garageRepository.findGaragesByLocationContainingIgnoreCase(locationAddress);
+		List<Garage> garages = garageRepository.findGaragesByLocation(locationAddress);
 		for (Garage garage : garages) {
 			garageDetailsList.add(getGarageWithRatings(garage));
 		}
